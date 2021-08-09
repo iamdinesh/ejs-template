@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+</head>
+
+<body>
+    <div>
+        Hello from test change
+    </div>
+    <%- include("dateRange.ejs") %>
+        <%- include("chart.ejs", {id: "days-chart", title: "No of days", key: "days"}) %>
+            <%- include("chart.ejs", {id: "hours-chart", title: "No of hours", key: "hours"}) %>
+</body>
+
+</html>
