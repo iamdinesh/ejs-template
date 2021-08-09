@@ -4,15 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+        }
+        
+        h3.title {
+            text-align: center
+        }
+    </style>
 </head>
 
 <body>
-    <div>
-        Hello from test change
-    </div>
-    <%- include("dateRange.ejs") %>
-        <%- include("chart.ejs", {id: "days-chart", title: "No of days", key: "days"}) %>
-            <%- include("chart.ejs", {id: "hours-chart", title: "No of hours", key: "hours"}) %>
+    <h3 class="title">Workhours Report -
+        <%= filterRange.startDate %> -
+            <%= filterRange.endDate %>
+    </h3>
+    <h3 class="title">No of days per user</h3>
+    <%- include("chart.ejs", {id: "days-chart", key: "days"}) %>
+        <h3 class="title">No of hours per user</h3>
+        <%- include("chart.ejs", {id: "hours-chart", key: "hours"}) %>
 </body>
 
 </html>

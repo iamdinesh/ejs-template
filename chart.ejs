@@ -3,7 +3,6 @@
     <script>
         var data = JSON.parse('<%- JSON.stringify(data) %>')
         var key = '<%= key %>'
-        var title = '<%= title %>'
         var canvasId = '<%= id %>'
         var labels = [],
             values = [];
@@ -32,8 +31,7 @@
                         display: false
                     },
                     title: {
-                        display: true,
-                        text: title
+                        display: false
                     }
                 },
                 scales: {
