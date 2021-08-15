@@ -1,0 +1,89 @@
+<div>
+  <table>
+    <tr>
+      <thead>
+        <th>Name</th>
+        <th>Days</th>
+        <th>Hours</th>
+        {{#ifCond groupBy "date"}}
+        <th>Date</th>
+        <th>Hours by date</th>
+        {{/ifCond}}
+        {{#ifCond groupBy "checkin"}}
+        <th>Date</th>
+        <th>Hours by date</th>
+        <th>Check-in Time</th>
+        <th>Check-out Time</th>
+        <th>Hours</th>
+        <th>Status</th>
+        {{/ifCond}}
+      </thead>
+    </tr>
+    <tbody id="table-body"></tbody>
+  </table>
+  <script>
+    const groupBy = "{{groupBy}}"
+    const tableData = {{{json tableData}}}
+
+    const formatTime = time => {
+      const hr = Math.floor(time / 60);
+      const min = time % 60;
+      let r = "";
+      if (hr) {
+        r = `${hr} hr${hr > 1 ? "s" : ""}`
+      }
+      if (min) {
+        r = `${r} ${min} min`
+      }
+      return r;
+    }
+
+    const getByStaff = () => {
+      var val = "";
+      tableData.forEach(d => {
+        val = val + "<tr><td>" + d.name + "</td><td>" + d.days + "</td><td>"+formatTime(d.time) + "</td></tr>"
+      })
+      return val;
+    }
+
+    const getByDate = () => {
+      var val = "";
+      tableData.forEach(d => {
+        const rowspan = d.dates.length
+        var td = "<td rowspan=" + rowspan + ">" + d.name + "</td><td rowspan=" + rowspan + ">" + d.days + "</td><td rowspan=" + rowspan + ">" + formatTime(d.time) + "</td>"
+        d.dates.forEach((e, i) => {
+          val = val + "<tr>" + (i === 0 ? td : '') + "<td>" + e.date + "</td><td>" + formatTime(e.time) + "</td></tr>"
+        })
+      })
+      return val
+    }
+
+  const getByCheckIn = () => {
+    var val = "";
+    tableData.forEach(d => {
+      var rowspan = (d.dates || []).reduce((acc, d) => acc + d.data.length, 0)
+      var staffTd = "<td rowspan=" + rowspan + ">" + d.name + "</td><td rowspan=" + rowspan + ">" + d.days + "</td><td rowspan=" + rowspan + ">" +formatTime(d.time) + "</td>"
+      d.dates.forEach((dt, dti) => {
+        var dateTd = (dti === 0 ? staffTd : '') + "<td rowspan=" + dt.data.length + ">" + dt.date + "</td><td rowspan=" + dt.data.length + ">" + formatTime(dt.time) + "</td>"
+        dt.data.map((r, ri) => {
+          val = val + "<tr>" + (ri === 0 ? dateTd : '') + "<td>" + r.checkinTime + "</td><td>" + r.checkoutTime + "</td><td>" + formatTime(r.time) + "</td><td>" + r.status + "</td></tr>"
+        })
+      })
+    })
+    return val
+  }
+
+    const getData = () => {
+      if(groupBy === "staff") {
+        return getByStaff()
+      }
+      if(groupBy === "date") {
+        return getByDate()
+      }
+      if(groupBy === "checkin") {
+        return getByCheckIn()
+      }
+    }
+    document.getElementById("table-body").innerHTML = getData()
+  </script>
+</div>

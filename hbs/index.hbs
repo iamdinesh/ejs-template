@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+  <style type="text/css">
+  body {
+    font-family: sans-serif;
+  }
+  
+  h3.title {
+    text-align: center
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0
+  }
+  
+  table th {
+      background-color: #ffb549;
+      text-align: left;
+      border: 1px solid #b3b3b3;
+      padding: 8px 3px
+  }
+  
+  table td {
+      text-align: left;
+      border: 1px solid #b3b3b3;
+      padding: 6px 3px;
+      font-size: 13px;
+  }
+  </style>
+</head>
+<body>
+  <h3 class="title">Workhours Report -
+    {{ filterRange.startDate }} - {{ filterRange.endDate }}
+  </h3>
+  {{> chart key="days" id="no-of-days" title="Number of days per staff"}}
+  <div style="margin-top: 20px"></div>
+  {{> chart key="time" id="no-of-hours" title="Number of hours per staff"}}
+  {{> table}}
+</body>
+</html>

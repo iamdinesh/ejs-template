@@ -12,6 +12,23 @@
         h3.title {
             text-align: center
         }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        table th {
+            text-align: left;
+            border: 1px solid #b3b3b3;
+            padding: 8px 0
+        }
+        
+        table td {
+            text-align: left;
+            border: 1px solid #b3b3b3;
+            padding: 5px 0
+        }
     </style>
 </head>
 
@@ -23,7 +40,10 @@
     <h3 class="title">No of days per user</h3>
     <%- include("chart.ejs", {id: "days-chart", key: "days"}) %>
         <h3 class="title">No of hours per user</h3>
-        <%- include("chart.ejs", {id: "hours-chart", key: "hours"}) %>
+        <%- include("chart.ejs", {id: "hours-chart", key: "time"}) %>
+            <h3 class="title">Workhour Data</h3>
+            <%- include("tableByStaff.ejs") %>
+
 </body>
 
 </html>

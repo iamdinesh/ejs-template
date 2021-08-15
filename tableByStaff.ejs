@@ -1,0 +1,23 @@
+<div>
+    <table>
+        <tr>
+            <thead>
+                <th>Name</th>
+                <th>Days</th>
+                <th>Hours</th>
+            </thead>
+        </tr>
+        <tbody id="groupby-staff"></tbody>
+    </table>
+    <script>
+        const tableData = JSON.parse('<%- JSON.stringify(tableData) %>')
+        const getByStaff = (data) => {
+            var val = "";
+            data.forEach(d => {
+                val = val + "<tr><td>" + d.name + "</td><td>" + d.days + "</td><td>" + d.time + "</td></tr>"
+            })
+            return val;
+        }
+        document.getElementById("groupby-staff").innerHTML = getByStaff(tableData)
+    </script>
+</div>

@@ -1,0 +1,55 @@
+<div>
+  <canvas id="{{id}}" style="width: 100%"></canvas>
+	<script>
+		var data = {{{json chartData}}}
+		var key = "{{key}}"
+		var canvasId = "{{id}}"
+		var title = "{{title}}"
+		var labels = [],
+				values = [];
+		var chartHeight = data.length >= 16 ? data.length * 25 : 400
+		data.forEach(d => {
+				labels.push(d.name);
+				values.push(d[key])
+		})
+		var canvas = document.getElementById(canvasId);
+		canvas.style.height = chartHeight + "px"
+		var ctx = canvas.getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: key === "days" ? "No of days" : "No of hours",
+					data: values,
+					backgroundColor: "#1281ca"
+				}]
+			},
+			options: {
+				indexAxis: 'y',
+				plugins: {
+					legend: {
+						display: false
+					},
+					title: {
+						display: true,
+						text: title
+					}
+				},
+				scales: {
+					x: {
+						grid: {
+							display: false
+						}
+					},
+					y: {
+						beginAtZero: false,
+						grid: {
+							display: false
+						}
+					}
+				}
+			}
+		});
+	</script>
+</div>

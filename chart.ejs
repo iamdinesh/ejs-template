@@ -1,14 +1,14 @@
 <div>
     <canvas id="<%= id %>" style="width: 100%"></canvas>
     <script>
-        var data = JSON.parse('<%- JSON.stringify(data) %>')
+        var data = JSON.parse('<%- JSON.stringify(chartData) %>')
         var key = '<%= key %>'
         var canvasId = '<%= id %>'
         var labels = [],
             values = [];
         var chartHeight = data.length >= 16 ? data.length * 25 : 400
         data.forEach(d => {
-            labels.push(d.staff);
+            labels.push(d.name);
             values.push(d[key])
         })
         var canvas = document.getElementById(canvasId);
@@ -19,7 +19,7 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'No of Days',
+                    label: key === "days" ? "No of days" : "No of hours",
                     data: values,
                     backgroundColor: "#1281ca"
                 }]
